@@ -1,17 +1,23 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 export default function CartPage() {
   const {
-  cartItems,
-  removeFromCart,
-  updateQuantity,
-  cartTotal,
-} = useCart();
+    cartItems,
+    removeFromCart,
+    updateQuantity,
+    cartTotal,
+  } = useCart();
+  const [mounted, setMounted] = useState(false);
 
-  if (cartItems.length === 0) {
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted || cartItems.length === 0) {
     return (
       <main className="pageContainer">
         <div className="emptyState">

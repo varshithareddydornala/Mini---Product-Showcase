@@ -1,10 +1,16 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { useCart } from "@/context/CartContext";
 
 export default function Navbar() {
   const { cartCount } = useCart();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <nav className="navbar">
@@ -19,7 +25,7 @@ export default function Navbar() {
         <Link href="/login">Login</Link>
 
         <Link href="/cart">
-          Cart ({cartCount})
+          Cart ({mounted ? cartCount : 0})
         </Link>
       </div>
     </nav>
